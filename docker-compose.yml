@@ -14,7 +14,7 @@ services:
     ports:
       - "9100:9100"
     command:
-      - '--collector.systemd'
+      - '--no-collector.systemd'
       - '--collector.processes'
 
   grafana:
