@@ -54,6 +54,32 @@ PromQL is used throughout the dashboard panels to power visualizations and insig
 
 ## Wiring and Architecture
 
+```mermaid
+flowchart TD
+    subgraph Docker Compose
+        prometheus[Prometheus Service]
+        nodeexporter[node_exporter Service]
+        grafana[Grafana Service]
+    end
+
+    prometheus ---|scrapes| nodeexporter
+
+    grafana -.->|provisioned by| datasource_yml[(datasource.yml)]
+    grafana -.->|provisioned by| dashboard_yml[(dashboard.yml)]
+    grafana -.->|loads| dashboard_json[(grafana_dashboard.json)]
+
+    datasource_yml -- defines UID --> dashboard_json
+    dashboard_yml -- points to --> dashboard_json
+
+    user[User's Browser] -->|accesses| grafana
+
+    note1[Note: grafana_dashboard.json hardwires the datasource UID to match datasource.yml]
+    note2[Note: Systemd collector is disabled in node_exporter for WSL2 compatibility]
+
+    dashboard_json -.->|uses UID| datasource_yml
+    nodeexporter -- exposes metrics --> prometheus
+```
+
 This project uses Docker Compose to orchestrate a complete observability stack with **Prometheus**, **node_exporter**, and **Grafana**. The setup is designed to be reproducible and ready-to-go, avoiding manual dashboard imports ("click ops") by hardwiring configuration and dashboard files.
 
 ### Summary
@@ -84,7 +110,7 @@ With this architecture, you can clone the repo, run `docker-compose up`, and imm
 
 ### Connection between `dashboard.yml` and `datasource.yml`
 
-The `dashboard.yml` file is responsible for telling Grafana which dashboards to automatically load at startup and which datasource to use as the default for those dashboards. It typically references a "provider" (such as `default`) and points to the location of your dashboard JSON files.
+The `dashboard.yml` file is responsible for telling Grafana which dashboards to automatically load at startup and which datasource to use as the default for those dashboards. It typically references a "provider" (such as `default`) and points to the location of `grafana/dashboards` files.
 
 The `datasource.yml` file provisions datasources for Grafana, such as Prometheus, and can specify which datasource should be the default by setting `isDefault: true`.
 
