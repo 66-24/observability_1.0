@@ -26,4 +26,5 @@ services:
       - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
       - ./grafana/dashboards:/var/lib/grafana/dashboards
     environment:
+    # This does not work since variable substitution happens only when importing grafana_dashboard.json via API or manually
       - DS_PROMETHEUS=prometheus-ds-uid
