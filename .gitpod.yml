@@ -1,0 +1,15 @@
+tasks:
+  - name: Start Grafana, Prometheus, and Node Exporter
+    init: docker-compose pull
+    command: ./up.sh
+
+ports:
+  - port: 3000
+    onOpen: open-preview
+    description: Grafana
+  - port: 9090
+    onOpen: open-preview
+    description: Prometheus
+  - port: 9100
+    onOpen: ignore
+    description: node_exporter

@@ -188,3 +188,29 @@ You should see a working dashboard similar to this:
     ```bash
     --no-collector.systemd
     ```
+
+## Deploying This Observability Stack on Gitpod
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/66-24/observability_1.0)
+
+**Gitpod** is a cloud-based development environment that lets you launch a ready-to-code workspace from any GitHub repository—no local setup required. It provides instant, disposable, and consistent dev environments in your browser.
+
+### How to Launch This Repo on Gitpod
+
+1. **Push all changes** to your GitHub repository.
+2. **Enable Gitpod integration** (one-time setup):
+    - Go to [https://gitpod.io/integrations](https://gitpod.io/integrations)
+    - Sign in with your GitHub account.
+    - Enable Gitpod for your GitHub account and authorize the GitHub app.
+3. **Click the button above** or open this URL in your browser:  
+    <https://gitpod.io/#https://github.com/66-24/observability_1.0>
+4. **Wait for Gitpod to initialize** your workspace. It will:
+   - Build the environment using `.gitpod.Dockerfile`
+   - Pull Docker images and start Prometheus, node_exporter, and Grafana using your `./up.sh` script
+   - Expose Grafana (port 3000) and Prometheus (port 9090) in the Gitpod preview
+
+5. **Access Grafana and Prometheus** directly from the Gitpod interface using the preview ports.
+
+---
+
+**With Gitpod, you can try out this observability stack in the cloud with a single click—no Docker or manual setup needed!**
