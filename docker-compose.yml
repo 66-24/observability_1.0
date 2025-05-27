@@ -10,12 +10,19 @@ services:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
 
   node-exporter:
-    image: prom/node-exporter
+    # https://hub.docker.com/r/prom/node-exporter/tags
+    image: prom/node-exporter:v1.9.1
     ports:
       - "9100:9100"
     command:
       - '--no-collector.systemd'
       - '--collector.processes'
+      - '--path.rootfs=/host'
+    network_mode: host
+    pid: host
+    restart: unless-stopped
+    volumes:
+      - '/:/host:ro,rslave'
 
   grafana:
     image: grafana/grafana

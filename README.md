@@ -1,6 +1,12 @@
 # Understanding Observablity
 
-Initial outline
+Goal: Download and use the Node Exporter dashboard created by Graphana for a comprehesive observability of compute resources.
+
+## What Node Exporter Provides
+
+Node Exporter is a Prometheus exporter for hardware and OS metrics exposed by *nix systems. Out of the box, it collects key system-level metrics such as CPU usage, memory, disk I/O, filesystem stats, network stats, load average, and more—without needing custom scripts or agents.
+
+[Learn more on the official GitHub page](https://github.com/prometheus/node_exporter)
 
 ## Setup
 
